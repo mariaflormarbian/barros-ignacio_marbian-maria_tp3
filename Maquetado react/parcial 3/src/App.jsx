@@ -9,6 +9,8 @@ import AboutMePage from './pages/AboutMePage';
 import TechnologiesPage from './pages/TechnologiesPage'; 
 import ContactPage from './pages/ContactPage'; 
 import AdminPage from './pages/AdminPage'; 
+import EditPage from './pages/EditPage'; 
+import DeletePage from './pages/DeletePage'; 
 
 function App() {
 
@@ -25,8 +27,10 @@ function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/about" element={<AboutMePage />} />
         <Route path="/technologies" element={<TechnologiesPage />} />
-        {/* <Route path="/admin" element={<AdminPage />} /> */}
-        {/* <Route path="*" element={<h1>404</h1>} /> */}
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/edit" element={<EditPage />} />
+        <Route path="/delete" element={<DeletePage />} />
+        <Route path="*" element={<h1>404</h1>} />
       </Routes> 
       </main>
     </BrowserRouter>
