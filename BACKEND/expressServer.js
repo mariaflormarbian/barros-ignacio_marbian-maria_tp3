@@ -1,5 +1,6 @@
 import express from "express";
 import ProjectsApiRouter from './api/routers/projects.api.routes.js'
+import UsersApiRouter from './api/routers/users.api.routes.js'
 import cors from 'cors'
 
 const app = express();
@@ -12,8 +13,8 @@ app.use(cors())
 
 // Rutas
 app.use('/', ProjectsApiRouter);
-
+app.use('/', UsersApiRouter);
 
 app.listen(2022, function () {
-  console.log("Mi portfolio profe --> http://localhost:2022");
+  console.log("http://localhost:2022");
 });
