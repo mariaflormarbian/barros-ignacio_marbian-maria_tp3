@@ -12,30 +12,48 @@ function App() {
 
   return (
 
-    <div className="Home">
+    <div>
       <BrowserRouter>
-      <nav>
-        <ul>
+      <nav className="navbar navbar-expand-lg navbar-dark fixed-top">
+      <div className="container flex-lg-column">
+
+      <Link className="navbar-brand mx-lg-auto mb-lg-4" to='/'>
+        <span className="h3 fw-bold d-block d-lg-none">Ignacio Barros</span>
+       </Link>
+
+       <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span className="navbar-toggler-icon"></span>
+      </button>
+      
+      <div className="collapse navbar-collapse" id="navbarNav">
+
+        <ul className="navbar-nav ms-auto flex-lg-column text-lg-center">
           <li>  
-          <Link to='/'>Home</Link>
+          <Link to='/' className="nav-link">Home</Link>
           </li>
           <li>  
-          <Link to='/services'>Servicios</Link>
+          <Link to='/services' className="nav-link">Servicios</Link>
           </li>
           <li>  
-          <Link to='/projects'>Proyectos</Link>
+          <Link to='/projects' className="nav-link">Proyectos</Link>
           </li>
           <li>  
-          <Link to='/about'>Sobre Mí</Link>
+          <Link to='/about' className="nav-link">Sobre Mí</Link>
           </li>
           <li>  
-          <Link to='/technologies'>Tecnologías</Link>
+          <Link to='/technologies' className="nav-link">Tecnologías</Link>
           </li>
           <li>  
-          <Link to='/admin'>Admin</Link>
+          <Link to='/admin' className="nav-link">Admin</Link>
           </li>
         </ul>
+        </div>
+      </div>
+
       </nav>
+      <main id="content-wrapper">
+
       <Routes>
         <Route path='/' element={<HomePage />} />
         <Route path='/services' element={<ServicesPage />} />
@@ -46,7 +64,9 @@ function App() {
         <Route path="*" element={<h1>404</h1>} />
 
       </Routes>
+      </main>
       </BrowserRouter>
+
     </div>
 
   )

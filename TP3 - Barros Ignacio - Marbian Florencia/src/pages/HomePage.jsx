@@ -1,9 +1,7 @@
-import '../css/Home.css';
 
 function HomePage(){
     return (
-
-       <section classNameName='Home'>
+       <section id="home" className="full-height px-lg-5">
 
                 <div className="row">
 
@@ -24,7 +22,6 @@ function HomePage(){
                 </div>
 
         </section>
-
     )
 }
 
