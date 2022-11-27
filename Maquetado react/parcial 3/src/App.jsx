@@ -20,10 +20,9 @@ function App() {
       <main id="content-wrapper">
       <Routes>
         <Route path="/" element={<HomePage/>} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/projects" element={<ProjectsPage />} />
-        <Route path="/about" element={<AboutMePage />} />
-        <Route path="/contact" element={< ContactPage />} />
+        <Route path='/services' element={<ServicesPage />} />
+        {/* <Route path='/projects' element={<ProjectsPage />} /> */}
+        {/* <Route path='/about' element={<AboutMePage />} /> */}
         {/* <Route path='/technologies' element={<TechnologiesPage />} /> */}
         {/* <Route path='/admin' element={<AdminPage />} /> */}
         {/* <Route path="*" element={<h1>404</h1>} /> */}
