@@ -1,0 +1,162 @@
+<%- include('../../layout/header', {title: "Administrar Proyecto" }) %>
+
+<section id="" class="full-height px-lg-5">
+
+    <div class="container">
+
+        <div class="row pb-4" data-aos="fade-up">
+            <div class="col-lg-8">
+                <h6 class="text-brand">ADMINISTRAR PROYECTOS</h6>
+                <h1>Mis Proyectos</h1>
+            </div>
+        </div>
+
+        <div class="row gy-5">
+
+            <div class="col-lg-12">
+
+                <!-- CONTADORES -->
+
+                <div class="cards">
+
+                    <div class="card-single bg-base p-4 rounded-4">
+
+                        <div>
+                            <p class="h3">
+                                <%= projects.length %>
+                            </p>
+                            <span>Proyectos</span>
+                        </div>
+                        <div>
+                            <span class="las la-code ps-2"></span>
+                        </div>
+
+                    </div>
+
+                    <div class="card-single bg-base p-4 rounded-4">
+                        <div>
+                            <p class="h3">
+                                <%= projects.filter(obj=> obj.public === false).length %>
+                            </p>
+                            <span>Ocultos</span>
+                        </div>
+                        <div>
+                            <span class="las la-eye-slash ps-2"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- PROYECTOS -->
+
+                <div class="mt-4">
+
+                    <div>
+
+                        <div>
+
+                            <div class="pb-4">
+
+                                <a href="/admin/projects/nuevo" class="btn btn-brand">Agregar Proyecto</a>
+
+                            </div>
+
+                            <div class="bg-base">
+
+                                <table class="table">
+
+                                    <thead>
+
+                                        <tr>
+                                            <th scope="col">
+                                                Proyecto
+                                            </th>
+                                            <th scope="col">
+                                                Link
+                                            </th>
+                                            <th scope="col">
+                                                Imagen
+                                            </th>
+                                            <th scope="col">
+                                                Mostrar
+                                            </th>
+                                            <th scope="col">
+                                                Acciones
+                                            </th>
+
+                                        </tr>
+
+                                    </thead>
+
+                                    <tbody>
+
+                                        <% projects.forEach(element=> { %>
+
+                                            <tr>
+
+                                                <td>
+                                                    <%= element.name %>
+                                                </td>
+                                                <td>
+                                                    <%= element.link %>
+                                                </td>
+                                                <td>
+                                                    <img src="<%= element.img %>" class="img-table">
+                                                </td>
+
+                                                <td>
+                                                    <%- (element.public) ? '<i class="las la-eye"></i>'
+                                                        : '<i class="las la-eye-slash"></i>' %>
+                                                </td>
+
+                                                <td>
+
+                                                    <form action="/admin/projects/<%= element._id %>/editar" class="pb-3 pt-3" method="get">
+
+                                                        <button type="submit" class="btn btn-success">Editar</button>
+
+                                                    </form>
+
+                                                    <form action="/admin/projects/<%= element._id %>/eliminar" class="pb-3 pt-3" method="get">
+
+                                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+
+                                                    </form>
+
+                                                    <form action="/admin/projects/<%= element._id %>/publicar" class="pb-3 pt-3" method="post">
+
+                                                        <input class="visually-hidden" type="number" name="public" id="public" value="<%= (element.public) ? 1 : 0 %>">
+
+                                                        <button id="butonPublic" type="submit" class="btn btn-primary"><%= (element.public) ? 'Ocultar' : 'Mostrar' %></button>
+
+                                                    </form>
+
+                                                </td>
+
+                                            </tr>
+
+                                            <% }); %>
+
+                                    </tbody>
+
+                                </table>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+<%- include('../../layout/footer') %>
