@@ -24,13 +24,13 @@ function RegisterPage(){
                 </div>
 
                 <div className="form-group col-md-6">
-                    <label className="visually-hidden" for="link">Password</label>
+                    <label className="visually-hidden" for="link">Contraseña</label>
                     <input 
                         type="password" 
                         name="password" 
                         id="password" 
                         className="form-control" 
-                        placeholder="Password"
+                        placeholder="Contraseña"
                    / >
                 </div>
 
