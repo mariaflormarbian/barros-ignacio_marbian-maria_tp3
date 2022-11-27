@@ -1,4 +1,3 @@
-
 function HomePage(){
     return (
        <section id="home" className="full-height px-lg-5">
