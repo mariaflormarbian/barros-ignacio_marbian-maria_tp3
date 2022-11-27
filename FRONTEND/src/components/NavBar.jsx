@@ -40,6 +40,12 @@ function NavBar() {
               <Link className="nav-link" aria-current="page" to="/contact">Contacto</Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link" aria-current="page" to="/login">Iniciar Sesión</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" aria-current="page" to="/register">Registrar</Link>
+            </li>
+            <li className="nav-item">
               <Link className="nav-link" aria-current="page" to="/admin">Admin</Link>
             </li>
             
