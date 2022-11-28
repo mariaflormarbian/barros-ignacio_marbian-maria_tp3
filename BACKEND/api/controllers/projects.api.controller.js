@@ -4,8 +4,8 @@ import * as TestimonialsService from "../../services/testimonials.services.js";
 function findAll(req, res) {
   const filter = {};
 
-  if (req.query.public) {
-    req.query.public === "true" ? (filter.public = true) : (filter.public = false);
+  if (req.query.state) {
+    req.query.state === "true" ? (filter.state = true) : (filter.state = false);
   }
 
   if (req.query.technologies) {
@@ -29,7 +29,7 @@ function create(req, res) {
     description: req.body.description,
     link: req.body.link,
     img: req.body.img,
-    public: req.body.public,
+    state: req.body.state,
     technologies: ['HTML']
   };
 
@@ -94,8 +94,8 @@ function editById(req, res) {
     project.img = req.body.img;
   }
 
-  if (req.body.public) {
-    project.public = req.body.public;
+  if (req.body.state) {
+    project.state = req.body.state;
   }
 
   if (req.body.technologies) {
