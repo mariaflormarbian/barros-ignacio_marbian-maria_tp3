@@ -1,4 +1,30 @@
+import { useState } from "react";
+import * as UsersService from "../services/users.services";
+import { useNavigate } from 'react-router-dom'
+
 function LoginPage() {
+      const navigate = useNavigate();
+    
+      const [email, setEmail] = useState("");
+      const [password, setPassword] = useState("");
+    
+      function emailChange(event) {
+        setEmail(event.target.value);
+      }
+      function passwordChange(event) {
+        setPassword(event.target.value);
+      }
+    
+      function loginUser(event) {
+        event.preventDefault();
+    
+        UsersService.create({
+          email,
+          password,
+        }).then(function () {
+          navigate("/");
+        });
+      }
   return (
     <section id="contact" className="full-height px-lg-5">
       <div className="container">
@@ -9,9 +35,7 @@ function LoginPage() {
 
           <div className="col-lg-8">
             <form
-              action=" <%= (project) ? `/admin/projects/${project._id}/editar` : '/admin/projects/nuevo' %>"
-              method="post"
-              enctype="application/x-www-form-urlencoded"
+             onSubmit={loginUser}
               className="row g-lg-3 gy-3"
             >
               <div className="form-group col-md-6">
@@ -19,9 +43,7 @@ function LoginPage() {
                   Email
                 </label>
                 <input
-                  type="email"
-                  name="email"
-                  id="email"
+                 onChange={emailChange} value={email}
                   className="form-control"
                   placeholder="Email"
                 />
@@ -33,8 +55,8 @@ function LoginPage() {
                 </label>
                 <input
                   type="password"
-                  name="password"
-                  id="password"
+                  onChange={passwordChange} value={password}
+
                   className="form-control"
                   placeholder="Contraseña"
                 />

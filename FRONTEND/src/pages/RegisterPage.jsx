@@ -1,6 +1,6 @@
 import { useState } from "react";
+import * as UsersService from "../services/users.services";
 import { useNavigate } from 'react-router-dom'
-import * as RegisterService from "../services/register.services";
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ function RegisterPage() {
   function saveUser(event) {
     event.preventDefault();
 
-    RegisterService.create({
+    UsersService.create({
       email,
       password,
     }).then(function () {

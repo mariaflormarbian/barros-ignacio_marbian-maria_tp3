@@ -33,7 +33,6 @@ function login(req, res) {
 
     UsersService.login(user)
         .then((user) => {
-            // const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET, { expiresIn: '1h' });
             const token = jwt.sign({ id: user._id, email: user.email }, 'CLAVE_SECRETA');
             res.status(200).json({ token, user });
         })
