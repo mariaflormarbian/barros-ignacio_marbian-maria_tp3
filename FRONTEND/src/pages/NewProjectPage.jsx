@@ -10,7 +10,7 @@ function NewProjectPage() {
     const [link, setLink] = useState('')
     const [img, setImg] = useState('')
     // const [public, setPublic] = useState('')
-    const [technologies, setTechnologies] = useState('')
+    const [technologies, setTechnologies] = useState()
 
     function nameChange(event){
         setName(event.target.value)
@@ -28,7 +28,7 @@ function NewProjectPage() {
     //     setPublic(event.target.value)
     // }
     function technologiesChange(event){
-        setTechnologies(event.target.value)
+        setTechnologies([event.target.value])
     }
     function saveProduct(event){
         event.preventDefault()
