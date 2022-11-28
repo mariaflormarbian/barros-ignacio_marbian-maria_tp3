@@ -1,6 +1,23 @@
 
+import { Link } from "react-router-dom";
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+
+import * as ProjectsService from '../services/projects.services'
 
 function AdminPage(){
+    
+    const [project, setProject] = useState('')
+
+    const [projects, setProjects] = useState([])
+
+    useEffect(() => {
+        ProjectsService.findAll()
+            .then(data => {
+                setProject(data[0].id)
+                setProjects(data)
+            })
+    }, [])
     return (
 <section className="full-height px-lg-5">
 
@@ -23,7 +40,7 @@ function AdminPage(){
 
                     <div>
                         <p className="h3">
-                            {/* <%= projects.length %> */}
+                            {projects.length}
                         </p>
                         <span>Proyectos</span>
                     </div>
@@ -56,7 +73,7 @@ function AdminPage(){
 
                         <div className="pb-4">
 
-                            <a href="/admin/projects/nuevo" className="btn btn-brand">Agregar Proyecto</a>
+                            <Link to="/newproject" className="btn btn-brand">Agregar Proyecto</Link>
 
                         </div>
 
@@ -71,13 +88,19 @@ function AdminPage(){
                                             Proyecto
                                         </th>
                                         <th scope="col">
+                                            Descripción
+                                        </th>
+                                        <th scope="col">
                                             Link
                                         </th>
                                         <th scope="col">
                                             Imagen
                                         </th>
                                         <th scope="col">
-                                            Mostrar
+                                            Tecnologías
+                                        </th>
+                                        <th scope="col">
+                                            Público
                                         </th>
                                         <th scope="col">
                                             Acciones
@@ -88,29 +111,36 @@ function AdminPage(){
                                 </thead>
 
                                 <tbody>
-{/* 
-                                    <% projects.forEach(element=> { %>
+
+             {projects.map((project)=>{
+                        return (
 
                                         <tr>
 
                                             <td>
-                                                <%= element.name %>
+                                            {project.name}
                                             </td>
                                             <td>
-                                                <%= element.link %>
+                                               {project.description}
+                                            </td>
+                                              <td>
+                                              {project.link}
+                                           </td>
+                                            <td>
+                                              <img class="img-fluid w-100 pb-1" src="{project.img}" alt="imagen proyecto" />
                                             </td>
                                             <td>
-                                                <img src="<%= element.img %>" className="img-table">
+                                                
+                                            {project.technologies}
                                             </td>
 
-                                            <td>
-                                                <%- (element.public) ? '<i className="las la-eye"></i>'
-                                                    : '<i className="las la-eye-slash"></i>' %>
-                                            </td>
+                                            {/* <td>
+                                                (público) 
+                                            </td> */}
 
-                                            <td>
+                                            {/* <td>
 
-                                                <form action="/admin/projects/<%= element._id %>/editar" className="pb-3 pt-3" method="get">
+                                                <form action="/admin/projects/<%= element._id %>/editar" className="pb-3 pt-3">
 
                                                     <button type="submit" className="btn btn-success">Editar</button>
 
@@ -130,11 +160,11 @@ function AdminPage(){
 
                                                 </form>
 
-                                            </td>
+                                            </td> */}
 
                                         </tr>
-
-                                        <% }); %> */}
+                        )
+                    })}
 
                                 </tbody>
 

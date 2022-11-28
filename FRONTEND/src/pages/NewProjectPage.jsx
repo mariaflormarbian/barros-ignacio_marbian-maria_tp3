@@ -1,11 +1,8 @@
+import { useState } from "react";
 import * as ProjectsService from "../services/projects.services";
-import { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
-function EditPage(){
-    const {id} = useParams()
-    const [project, setProject] = useState(null)
-    const [projects, setProjects] = useState([])
+function NewProjectPage() {
     const navigate = useNavigate()
 
     const [name, setName] = useState('')
@@ -15,17 +12,6 @@ function EditPage(){
     // const [public, setPublic] = useState('')
     const [technologies, setTechnologies] = useState('')
 
-    useEffect(()=>{
-        ProjectsService.findById(id)
-        .then((data)=>{
-            setProject(data)
-            return ProjectsService.getProject(id)
-        })
-        .then((data)=>{
-            setProjects(data)
-        })
-
-    }, [id])
     function nameChange(event){
         setName(event.target.value)
     }
@@ -44,10 +30,10 @@ function EditPage(){
     function technologiesChange(event){
         setTechnologies(event.target.value)
     }
-    function editProject(event){
+    function saveProduct(event){
         event.preventDefault()
 
-        ProjectsService.editById({
+        ProjectsService.create({
             name,
             description,
             link,
@@ -59,8 +45,9 @@ function EditPage(){
         .then(function(){
             navigate('/admin')
         })
-    return (
-<section id="contact" className="full-height px-lg-5">
+    }
+  return (
+    <section id="contact" className="full-height px-lg-5">
       <div className="container">
         <div className="row justify-content-center text-center">
           <div className="col-lg-8 pb-4">
@@ -68,8 +55,8 @@ function EditPage(){
           </div>
 
           <div className="col-lg-8">
-          <form
-             onSubmit={editProject}
+            <form
+             onSubmit={saveProduct}
               className="row g-lg-3 gy-3"
             >
               <div className="form-group col-md-6">
@@ -155,14 +142,12 @@ function EditPage(){
                     Agregar                
                 </button>
               </div>
-              </form>
+            </form>
           </div>
-           
         </div>
-        
       </div>
     </section>
   );
 }
-}
-export default EditPage
+
+export default NewProjectPage;
