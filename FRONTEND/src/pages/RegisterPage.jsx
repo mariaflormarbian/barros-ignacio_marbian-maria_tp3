@@ -1,4 +1,27 @@
+import { useEffect, useState } from 'react'
+import * as RegisterService from '../services/register.services'
+
 function RegisterPage(){
+    const navigate = useNavigate()
+
+    const [email, setEmail] = useState('')
+    const [password, passwordChange] = useState('')
+
+    function emailChange(event){
+        setEmail(event.target.value)
+    }
+
+    function saveUser(event){
+        event.preventDefault()
+
+        RegisterService.create({
+            email,
+            password
+        })
+        .then(function(){
+            navigate('/admin')
+        })
+    }
     return (
 <section id="contact" className="full-height px-lg-5">
 
@@ -11,26 +34,18 @@ function RegisterPage(){
 
         <div className="col-lg-8">
 
-            <form action=" <%= (project) ? `/admin/projects/${project._id}/editar` : '/admin/projects/nuevo' %>" method="post" enctype="application/x-www-form-urlencoded" className="row g-lg-3 gy-3">
+            <form onSubmit={saveUser} className="row g-lg-3 gy-3">
 
                 <div className="form-group col-md-6">
                     <label className="visually-hidden" for="email">Email</label>
                     <input 
-                        type="email" 
-                        name="email" 
-                        id="email" 
-                        className="form-control" 
-                        placeholder="Email"                    / >
+                        onChange={emailChange} value={email} / >
                 </div>
 
                 <div className="form-group col-md-6">
                     <label className="visually-hidden" for="link">Contraseña</label>
                     <input 
-                        type="password" 
-                        name="password" 
-                        id="password" 
-                        className="form-control" 
-                        placeholder="Contraseña"
+                        onChange={passwordChange} value={password}
                    / >
                 </div>
 
