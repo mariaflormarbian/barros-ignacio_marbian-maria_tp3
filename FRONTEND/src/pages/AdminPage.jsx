@@ -12,6 +12,12 @@ function AdminPage() {
       setProjects(data);
     });
   }, []);
+
+  function editProject(id) {
+    ProjectsService.editById(id).then((data) => {
+      setProjects(data);
+    });
+  }
   return (
     <section className="full-height px-lg-5">
       <div className="container">
@@ -90,31 +96,18 @@ function AdminPage() {
                               <td>{project.state ? "Si" : "No"}</td>
 
                               <td>
-                                <form
-                                  action="/admin/projects/<%= element._id %>/editar"
-                                  className="pb-3 pt-3"
+                                <Link
+                                  className="btn btn-success"
+                                  to={`/projects/edit/${project._id}`}
                                 >
-                                  <button
-                                    type="submit"
-                                    className="btn btn-success"
-                                  >
-                                    Editar
-                                  </button>
-                                </form>
-                                {/* 
-                                                <form action="/admin/projects/<%= element._id %>/eliminar" className="pb-3 pt-3" method="get">
-
-                                                    <button type="submit" className="btn btn-danger">Eliminar</button>
-
-                                                </form> */}
-                                {/* 
-                                                <form action="/admin/projects/<%= element._id %>/publicar" className="pb-3 pt-3" method="post">
-
-                                                    <input className="visually-hidden" type="number" name="public" id="public" value="<%= (element.public) ? 1 : 0 %>">
-
-                                                    <button id="butonPublic" type="submit" className="btn btn-primary"><%= (element.public) ? 'Ocultar' : 'Mostrar' %></button>
-
-                                                </form> */}
+                                  Editar
+                                </Link>
+                                <Link
+                                  className="btn btn-danger"
+                                  to={`/projects/delete/${project._id}`}
+                                >
+                                  Eliminar
+                                </Link>
                               </td>
                             </tr>
                           );

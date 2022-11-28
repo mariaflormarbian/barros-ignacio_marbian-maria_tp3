@@ -28,8 +28,8 @@ function App() {
           <Route path="/about" element={<AboutMePage />} />
           <Route path="/technologies" element={<TechnologiesPage />} />
           <Route path="/admin" element={<AdminPage />} />
-          <Route path="/edit" element={<EditPage />} />
-          <Route path="/delete" element={<DeletePage />} />
+          <Route path="/projects/edit/:id" element={<EditPage />} />
+          <Route path="/projects/delete/:id" element={<DeletePage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/newproject" element={<NewProjectPage />} />

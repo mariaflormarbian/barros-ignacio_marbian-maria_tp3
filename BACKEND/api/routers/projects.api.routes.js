@@ -33,4 +33,3 @@ router.route('/api/projects/:id/gallery/:idImage')
     .delete(galleryApiController.deleteImageById)
     
 export default router
-
