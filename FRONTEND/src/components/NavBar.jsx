@@ -8,7 +8,7 @@ function NavBar() {
       <div className="container flex-lg-column">
         <a className="navbar-brand mx-lg-auto mb-lg-4" href="#">
             <span className="h3 fw-bold d-block d-lg-none">Gana Alemania</span>
-            <img src="../../imgs/foto-perfil.jpg" alt="Imagen foto de usuario"  className="d-none d-lg-block rounded-circle"/>
+            <img src="/imgs/foto-perfil.jpg" alt="Imagen foto de usuario"  className="d-none d-lg-block rounded-circle"/>
         </a>
 
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
