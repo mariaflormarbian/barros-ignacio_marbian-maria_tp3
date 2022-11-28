@@ -9,7 +9,7 @@ function NewProjectPage() {
     const [description, setDescription] = useState('')
     const [link, setLink] = useState('')
     const [img, setImg] = useState('')
-    // const [public, setPublic] = useState('')
+    const [state, setState] = useState(false)
     const [technologies, setTechnologies] = useState()
 
     function nameChange(event){
@@ -24,13 +24,13 @@ function NewProjectPage() {
     function imgChange(event){
         setImg(event.target.value)
     }
-    // function publicChange(event){
-    //     setPublic(event.target.value)
-    // }
+    function stateChange(event){
+        setState(event.target.checked)
+    }
     function technologiesChange(event){
         setTechnologies([event.target.value])
     }
-    function saveProduct(event){
+    function saveProject(event){
         event.preventDefault()
 
         ProjectsService.create({
@@ -38,7 +38,7 @@ function NewProjectPage() {
             description,
             link,
             img,
-            // public,
+            state,
             technologies
 
         })
@@ -56,7 +56,7 @@ function NewProjectPage() {
 
           <div className="col-lg-8">
             <form
-             onSubmit={saveProduct}
+             onSubmit={saveProject}
               className="row g-lg-3 gy-3"
             >
               <div className="form-group col-md-6">
@@ -112,18 +112,19 @@ function NewProjectPage() {
 />
               </div>
 
-              {/* <div className="form-group col-md-6">
-                <label className="form-check-label" for="public">
+              <div className="form-group col-md-6">
+                <label className="form-check-label" for="state">
                   Público
                 </label>
                 <input
                 type="checkbox"
-                id="public"
-                name="public"
-                onChange={publicChange} 
+                id="state"
+                name="state"
+                onChange={stateChange} 
+                checked={state}
                 className="form-check-input"
-                value={public} />
-              </div> */}
+               />
+              </div> 
 
               <div className="form-group col-md-6">
                 <label className="visually-hidden" for="technologies">

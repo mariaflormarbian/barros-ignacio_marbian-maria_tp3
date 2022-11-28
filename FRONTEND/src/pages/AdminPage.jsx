@@ -14,7 +14,8 @@ function AdminPage(){
     useEffect(() => {
         ProjectsService.findAll()
             .then(data => {
-                setProject(data[0].id)
+                // setProject(data[0].id)
+                console.log(data)
                 setProjects(data)
             })
     }, [])
@@ -127,16 +128,22 @@ function AdminPage(){
                                               {project.link}
                                            </td>
                                             <td>
-                                              <img class="img-fluid w-100 pb-1" src="{project.img}" alt="imagen proyecto" />
+                                              <img className="img-fluid w-100 pb-1" src="{project.img}" alt="imagen proyecto" />
                                             </td>
                                             <td>
                                                 
                                             {project.technologies}
                                             </td>
 
-                                            {/* <td>
-                                                (público) 
-                                            </td> */}
+                                            <td>
+                                                {
+                                                    if(project.state){
+                                                        "true"
+                                                    }else{
+                                                        "false"
+                                                    }
+                                                }
+                                            </td> 
 
                                             {/* <td>
 
