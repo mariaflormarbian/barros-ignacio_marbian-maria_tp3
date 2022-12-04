@@ -2,11 +2,12 @@ import express from 'express'
 import * as projectsApiController from '../controllers/projects.api.controller.js'
 import * as technologiesApiController from '../controllers/technologies.api.controller.js'
 import * as galleryApiController from '../controllers/gallery.api.controller.js'
+import { isLogin, isAdmin } from '../middleware/auth_middleware.js'
 
 const router = express.Router()
 
 router.route('/api/projects')
-    .get(projectsApiController.findAll)
+    .get([isLogin, isAdmin],projectsApiController.findAll)
     .post(projectsApiController.create)
 
 router.route('/api/projects/:id')

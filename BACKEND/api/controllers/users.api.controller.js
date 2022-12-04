@@ -6,7 +6,9 @@ function create(req, res) {
     const user = {
         email: req.body.email,
         password: req.body.password,
+        role: req.body.role || 'user'
     }
+
     UsersService.create(user)
         .then((user) => {
             res.status(201).json(user);
@@ -33,7 +35,7 @@ function login(req, res) {
 
     UsersService.login(user)
         .then((user) => {
-            const token = jwt.sign({ id: user._id, email: user.email }, 'CLAVE_SECRETA');
+            const token = jwt.sign({ id: user._id, email: user.email, role: user.role }, 'CLAVE_SECRETA');
             res.status(200).json({ token, user });
         })
         .catch((err) => {
