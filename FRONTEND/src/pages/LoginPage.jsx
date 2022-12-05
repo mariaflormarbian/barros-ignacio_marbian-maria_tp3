@@ -1,28 +1,27 @@
 import { useState } from "react";
 import * as UsersService from "../services/users.services";
-import {login} from '../services/users.services'; 
-import { useNavigate } from 'react-router-dom'
 
-function LoginPage({onLogin}) {
-      const navigate = useNavigate();
-    
-      const [email, setEmail] = useState("");
-      const [password, setPassword] = useState("");
-    
-      function emailChange(event) {
-        setEmail(event.target.value);
-      }
-      function passwordChange(event) {
-        setPassword(event.target.value);
-      }
-    
-      function loginUser(event) {
-        event.preventDefault();
-        login(email, password)
-       .then(({token, user})=>{
-          onLogin(token, user);
-       })
-      }
+function LoginPage({ onLogin }) {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  function emailChange(event) {
+    setEmail(event.target.value);
+  }
+
+  function passwordChange(event) {
+    setPassword(event.target.value);
+  }
+
+  function loginUser(event) {
+    event.preventDefault();
+    UsersService.login(email, password)
+      .then(({ token, user }) => {
+        onLogin(token, user);
+      })
+  }
+
   return (
     <section id="contact" className="full-height px-lg-5">
       <div className="container">
@@ -33,7 +32,7 @@ function LoginPage({onLogin}) {
 
           <div className="col-lg-8">
             <form
-             onSubmit={loginUser}
+              onSubmit={loginUser}
               className="row g-lg-3 gy-3"
             >
               <div className="form-group col-md-6">
@@ -41,7 +40,7 @@ function LoginPage({onLogin}) {
                   Email
                 </label>
                 <input
-                 onChange={emailChange} value={email}
+                  onChange={emailChange} value={email}
                   className="form-control"
                   placeholder="Email"
                 />

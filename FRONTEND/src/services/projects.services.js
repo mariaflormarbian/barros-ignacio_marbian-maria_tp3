@@ -1,5 +1,12 @@
 async function findAll() {
-  return fetch("http://localhost:2022/api/projects").then((response) =>
+  return fetch("http://localhost:2022/api/projects",{
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzOGRlYmRiMmQ0YTJkZGQzN2I5YzkzYyIsImVtYWlsIjoiYnJpYW4uYXByb2JhbWVAZ21haWwuY29tIiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNjcwMjQ3NTMzfQ.q4TRpjLjDt2-xB3tqUi6AEqsnd_hKzi6RJnNHE92lfg"
+    },
+  })
+  .then((response) =>
     response.json()
   );
 }

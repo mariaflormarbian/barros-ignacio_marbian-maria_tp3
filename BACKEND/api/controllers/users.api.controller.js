@@ -26,6 +26,9 @@ function find(req, res) {
 }
 
 function login(req, res) {
+
+  console.log('me ejecuto');
+
   const user = {
     email: req.body.email,
     password: req.body.password,
@@ -33,32 +36,31 @@ function login(req, res) {
 
   UsersService.login(user)
     .then((user) => {
-      const token = jwt.sign(
-        { id: user._id, email: user.email, role: "admin" },
-        "CLAVE_SECRETA"
-      );
 
-      tokenService
-        .create({ token: token, user_id: user._id })
+      const token = jwt.sign({ id: user._id, email: user.email, role: user.role }, "CLAVE_SECRETA");
+
+      console.log(token);
+
+      tokenService.create({ token: token, user_id: user._id })
         .then(function () {
           res.status(200).json({ token, user });
         })
         .catch(function (err) {
-          res.status(400).json({ message: "Error al crear el token" });
+          res.status(500).json({ message: "Error al crear el token" });
         });
-      res.status(200).json({ token, user });
     })
     .catch((err) => {
       res.status(400).json({ message: err.message });
     });
 }
 
-function logout() {
+function logout(req, res) {
   const token = req.headers["auth-token"];
-  tokenService.deleteByToken(token).then(function () {
-    res.status(200).json({ message: "Sesión cerrada" });
-  });
-}
+  tokenService.deleteByToken(token)
+    .then(function () {
+      res.status(200).json({ message: "Sesión cerrada" });
+    });
+  }
 
 function findById(req, res) {
   const id = req.params.id;

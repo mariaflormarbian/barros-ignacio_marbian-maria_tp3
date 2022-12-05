@@ -2,46 +2,47 @@ import jwt from 'jsonwebtoken';
 import * as tokenService from '../../services/tokens.services.js'
 
 function isLogin(req, res, next) {
-    const token = req.headers['auth-token'];
+  const token = req.headers['auth-token'];
 
-    if (!token) {
-      return res.status(401).json({ message: 'Acceso denegado' });
-    }
-  
-    try {
+  if (!token) {
+    return res.status(401).json({ message: 'Acceso denegado' });
+  }
 
-      const verified = jwt.verify(token, 'CLAVE_SECRETA');
-     tokenService.findByToken(token)
-      
-     .then(function(token){
-      if(!token){
-        return res.status(401).json({ message: 'Acceso denegado' });
-      }
-     req.user = verified;
-      next()
+  try {
+
+    const verified = jwt.verify(token, 'CLAVE_SECRETA');
+    
+    tokenService.findByToken(token)
+      .then(function (token) {
+
+        if (!token) {
+          return res.status(401).json({ message: 'Acceso denegado' });
+        }
+        
+        req.user = verified;
+        next()
       })
-      .catch(function(){
-        res.status(400).json({message: 'Token invalido'});
+      .catch(function () {
+        res.status(401).json({ message: 'Token invalido' });
       })
 
-    }
-    catch (err) {
-      res.status(400).json({ message: 'Token invalido' });
-    }
-
+  }
+  catch (err) {
+    res.status(401).json({ message: 'Token invalido' });
+  }
 }
 
 function isAdmin(req, res, next) {
-    const role = req.user.role;
+  const role = req.user.role;
 
-    if (role !== 'admin') {
-      return res.status(401).json({ message: 'Acceso denegado' });
-    }
+  if (role !== 'admin') {
+    return res.status(401).json({ message: 'Acceso denegado' });
+  }
 
-    next();
+  next();
 }
 
-export{
-    isLogin,
-    isAdmin
+export {
+  isLogin,
+  isAdmin
 }
