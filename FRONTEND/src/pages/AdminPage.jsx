@@ -7,7 +7,8 @@ function AdminPage() {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    ProjectsService.findAll().then((data) => {
+    ProjectsService.findAll()
+    .then((data) => {
       console.log(data);
       setProjects(data);
     });

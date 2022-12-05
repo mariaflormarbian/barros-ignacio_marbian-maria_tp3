@@ -35,6 +35,8 @@ async function find() {
 
 async function login(user) {
 
+    console.log(user);
+
     await client.connect();
 
     const userFound = await users.findOne({ email: user.email });
@@ -42,13 +44,13 @@ async function login(user) {
     if (!userFound) {
         throw new Error('El usuario no existe');
     }
-
+    
     const passwordMatch = await bcrypt.compare(user.password, userFound.password);
-
+    
     if (!passwordMatch) {
         throw new Error('La contraseña no es correcta');
     }
-
+    
     return userFound;
 }
 

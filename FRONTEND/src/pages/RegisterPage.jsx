@@ -44,7 +44,7 @@ function RegisterPage() {
 
               <div className="form-group col-md-6">
 
-                <label className="visually-hidden" for="email">
+                <label className="visually-hidden" htmlFor="email">
                   Email
                 </label>
 
@@ -53,7 +53,7 @@ function RegisterPage() {
               </div>
 
               <div className="form-group col-md-6">
-                <label className="visually-hidden" for="link">
+                <label className="visually-hidden" htmlFor="link">
                   Contraseña
                 </label>
                 <input type="password" className="form-control" placeholder="Contraseña" onChange={passwordChange} value={password} />

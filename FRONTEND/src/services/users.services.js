@@ -11,18 +11,23 @@ async function create(user) {
 }
 
 async function login(email, password) {
+
+    const user = {
+        email: email,
+        password: password
+    }
+
     return fetch('http://localhost:2022/api/users/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(email, password)
+        body: JSON.stringify(user)
     })
-      .then((reponse) => {
-        console.log(reponse);
-        if(reponse.ok){
-            return reponse.json()
+      .then((response) => {
 
+        if(response.ok){
+            return response.json()
         }else {
             throw new Error("Error al iniciar sesión");
         }

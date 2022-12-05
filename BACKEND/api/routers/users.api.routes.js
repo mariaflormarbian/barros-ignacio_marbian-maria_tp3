@@ -8,7 +8,8 @@ router.route('/api/users')
     .post(usersApiController.create);    
 
 router.route('/api/users/login')
-    .post(usersApiController.login);
+    .post(usersApiController.login)
+    .delete(usersApiController.logout);
 
 router.route('/api/users/:id')
     .get(usersApiController.findById)

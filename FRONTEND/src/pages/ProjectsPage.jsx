@@ -5,14 +5,14 @@ import * as ProjectsService from '../services/projects.services'
 
 function ProjectsPage(){
 
-    const [project, setProject] = useState('')
+    // const [project, setProject] = useState('')
 
     const [projects, setProjects] = useState([])
 
     useEffect(() => {
         ProjectsService.findAll()
             .then(data => {
-                setProject(data[0].id)
+                // setProject(data[0].id)
                 setProjects(data)
             })
     }, [])

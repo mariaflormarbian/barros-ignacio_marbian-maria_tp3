@@ -6,6 +6,9 @@ import { isLogin, isAdmin } from '../middleware/auth_middleware.js'
 
 const router = express.Router()
 
+// router.route('/api/projects*')
+//     .all([isLogin, isAdmin])
+
 router.route('/api/projects')
     .get([isLogin, isAdmin],projectsApiController.findAll)
     .post(projectsApiController.create)
