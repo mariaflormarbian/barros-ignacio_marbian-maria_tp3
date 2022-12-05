@@ -1,72 +1,79 @@
-import * as UsersService from '../../services/users.services.js'
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
+
+import * as UsersService from "../../services/users.services.js";
+import * as tokenService from "../../services/tokens.services.js";
 
 function create(req, res) {
-    
-    const user = {
-        email: req.body.email,
-        password: req.body.password,
-        role: req.body.role || 'user'
-    }
+  const user = {
+    email: req.body.email,
+    password: req.body.password,
+    role: req.body.role || "user",
+  };
 
-    UsersService.create(user)
-        .then((user) => {
-            res.status(201).json(user);
-        })
-        .catch ((err) => {
-            res.status(400).json({message: err.message});
-        });
+  UsersService.create(user)
+    .then((user) => {
+      res.status(201).json(user);
+    })
+    .catch((err) => {
+      res.status(400).json({ message: err.message });
+    });
 }
 
 function find(req, res) {
-
-    UsersService.find()
-        .then((users) => {
-            res.json(users);
-        })
+  UsersService.find().then((users) => {
+    res.json(users);
+  });
 }
 
 function login(req, res) {
-    
-    const user = {
-        email: req.body.email,
-        password: req.body.password
-    }
+  const user = {
+    email: req.body.email,
+    password: req.body.password,
+  };
 
-    UsersService.login(user)
-        .then((user) => {
-            const token = jwt.sign({ id: user._id, email: user.email, role: user.role }, 'CLAVE_SECRETA');
-            res.status(200).json({ token, user });
+  UsersService.login(user)
+    .then((user) => {
+      const token = jwt.sign(
+        { id: user._id, email: user.email, role: "admin" },
+        "CLAVE_SECRETA"
+      );
+
+      tokenService
+        .create({ token: token, user_id: user._id })
+        .then(function () {
+          res.status(200).json({ token, user });
         })
-        .catch((err) => {
-            res.status(400).json({ message: err.message });
+        .catch(function (err) {
+          res.status(400).json({ message: "Error al crear el token" });
         });
+      res.status(200).json({ token, user });
+    })
+    .catch((err) => {
+      res.status(400).json({ message: err.message });
+    });
 }
 
-function findById(req, res){
+function logout() {
+  const token = req.headers["auth-token"];
+  tokenService.deleteByToken(token).then(function () {
+    res.status(200).json({ message: "Sesión cerrada" });
+  });
+}
 
-    const id = req.params.id;
-    
-    UsersService.findById(id)
-        .then((user) => {
-            res.status(200).json(user);
-        });
+function findById(req, res) {
+  const id = req.params.id;
+
+  UsersService.findById(id).then((user) => {
+    res.status(200).json(user);
+  });
 }
 
 function deleteById(req, res) {
+  const id = req.params.id;
 
-    const id = req.params.id;
-
-    UsersService.deleteById(id)
-        .then((user) => {
-            res.status(204).end();
-        })
+  UsersService.deleteById(id).then((user) => {
+    res.status(204).end();
+  });
 }
 
-export {
-    create,
-    find,
-    login,
-    findById,
-    deleteById
-}
+export { create, find, login, logout, findById, deleteById };

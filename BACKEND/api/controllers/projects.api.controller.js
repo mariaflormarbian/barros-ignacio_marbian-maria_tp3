@@ -18,25 +18,23 @@ function findAll(req, res) {
     })
     .catch(function (err) {
       res.status(500).json({ message: "Error al traer los proyectos" });
-    })
-
+    });
 }
 
 function create(req, res) {
-
   const project = {
     name: req.body.name,
     description: req.body.description,
     link: req.body.link,
     img: req.body.img,
     state: req.body.state,
-    technologies: ['HTML']
+    technologies: ["HTML"],
   };
 
   if (req.body.technologies) {
-
-    typeof req.body.technologies === 'string' ? project.technologies.push(req.body.technologies) : project.technologies = req.body.technologies;
-
+    typeof req.body.technologies === "string"
+      ? project.technologies.push(req.body.technologies)
+      : (project.technologies = req.body.technologies);
   }
 
   ProjectsService.guardarProject(project)
@@ -112,17 +110,14 @@ function editById(req, res) {
 }
 
 function findTestimonials(req, res) {
-  
   const id = req.params.id;
 
-  TestimonialsService.findTestimonials(id)
-    .then(function (testimonials) {
-      res.status(200).json(testimonials);
-    });
+  TestimonialsService.findTestimonials(id).then(function (testimonials) {
+    res.status(200).json(testimonials);
+  });
 }
 
 function createTestimonial(req, res) {
-
   const id = req.params.id;
 
   const testimony = {
@@ -132,12 +127,14 @@ function createTestimonial(req, res) {
   };
 
   TestimonialsService.createTestimonial(id, testimony)
-  .then(function (testimony) {
-    res.status(201).json(testimony);
-  })
-  .catch(function (err) {
-    res.status(500).json({ message: "Error al intentar guardar el testimonio" });
-  });
+    .then(function (testimony) {
+      res.status(201).json(testimony);
+    })
+    .catch(function (err) {
+      res
+        .status(500)
+        .json({ message: "Error al intentar guardar el testimonio" });
+    });
 }
 
 function deleteTestimonyById(req, res) {

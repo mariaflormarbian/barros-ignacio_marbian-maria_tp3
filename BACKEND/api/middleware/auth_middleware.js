@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import * as tokenService from '../../services/tokens.services.js'
 
 function isLogin(req, res, next) {
     const token = req.headers['auth-token'];
@@ -10,15 +11,24 @@ function isLogin(req, res, next) {
     try {
 
       const verified = jwt.verify(token, 'CLAVE_SECRETA');
-      req.user = verified;
-
-    } catch (err) {
-
-      return res.status(400).json({ message: 'Token no válido' });
+     tokenService.findByToken(token)
+      
+     .then(function(token){
+      if(!token){
+        return res.status(401).json({ message: 'Acceso denegado' });
+      }
+     req.user = verified;
+      next()
+      })
+      .catch(function(){
+        res.status(400).json({message: 'Token invalido'});
+      })
 
     }
+    catch (err) {
+      res.status(400).json({ message: 'Token invalido' });
+    }
 
-    next();
 }
 
 function isAdmin(req, res, next) {

@@ -18,7 +18,15 @@ async function login(email, password) {
         },
         body: JSON.stringify(email, password)
     })
-        .then(response => response.json())
+      .then((reponse) => {
+        console.log(reponse);
+        if(reponse.ok){
+            return reponse.json()
+
+        }else {
+            throw new Error("Error al iniciar sesión");
+        }
+    })
 }
 
 export {

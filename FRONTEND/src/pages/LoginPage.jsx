@@ -1,8 +1,9 @@
 import { useState } from "react";
 import * as UsersService from "../services/users.services";
+import {login} from '../services/users.services'; 
 import { useNavigate } from 'react-router-dom'
 
-function LoginPage() {
+function LoginPage({onLogin}) {
       const navigate = useNavigate();
     
       const [email, setEmail] = useState("");
@@ -17,13 +18,10 @@ function LoginPage() {
     
       function loginUser(event) {
         event.preventDefault();
-    
-        UsersService.create({
-          email,
-          password,
-        }).then(function () {
-          navigate("/");
-        });
+        login(email, password)
+       .then(({token, user})=>{
+          onLogin(token, user);
+       })
       }
   return (
     <section id="contact" className="full-height px-lg-5">
@@ -39,7 +37,7 @@ function LoginPage() {
               className="row g-lg-3 gy-3"
             >
               <div className="form-group col-md-6">
-                <label className="visually-hidden" for="email">
+                <label className="visually-hidden" htmlFor="email">
                   Email
                 </label>
                 <input
@@ -50,7 +48,7 @@ function LoginPage() {
               </div>
 
               <div className="form-group col-md-6">
-                <label className="visually-hidden" for="link">
+                <label className="visually-hidden" htmlFor="link">
                   Contraseña
                 </label>
                 <input
